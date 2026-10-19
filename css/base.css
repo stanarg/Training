@@ -1,0 +1,185 @@
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  img, svg { display: block; max-width: 100%; }
+  input, button, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
+  button { background: none; border: 0; padding: 0; cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
+  ul, ol { list-style: none; padding: 0; }
+  dialog { padding: 0; border: 0; color: inherit; }
+  fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  legend { padding: 0; }
+  table { border-collapse: collapse; }
+  [hidden] { display: none !important; }
+}
+
+@layer base {
+  html {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 100%;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* iOS: take the base size from the user's Dynamic Type setting; everything else is rem. */
+  @media (hover: none) and (pointer: coarse) {
+    @supports (font: -apple-system-body) {
+      html { font: -apple-system-body; font-family: var(--font); line-height: 1.4; }
+    }
+  }
+
+  body {
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior: none;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    background: var(--bg);
+  }
+
+  h1, h2, h3 { font-weight: 600; line-height: 1.2; }
+  h1 { font-size: var(--fs-large); font-weight: 700; letter-spacing: -0.02em; }
+  h2 { font-size: var(--fs-headline); }
+  h3 { font-size: var(--fs-body); }
+
+  input, output, time, .num { font-variant-numeric: tabular-nums; }
+
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+  [tabindex="-1"]:focus-visible { outline: none; }
+
+  ::selection { background: var(--accent-soft); }
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+@layer layout {
+  /* Views stack inside a fixed frame; each view is its own scroller, so every
+     tab keeps its own scroll position, like a native tab bar app. */
+  .views {
+    position: relative;
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+
+  .view {
+    position: absolute;
+    inset: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding:
+      calc(var(--safe-top) + 12px)
+      calc(var(--gutter) + var(--safe-right))
+      32px
+      calc(var(--gutter) + var(--safe-left));
+    background: var(--bg);
+    will-change: transform;
+  }
+
+  /* Make room for the timer pill while it is showing. */
+  body:has(.timer-pill:not([hidden])) .view {
+    padding-top: calc(var(--safe-top) + 12px + var(--tap) + 16px);
+  }
+
+  .view-content {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+
+  .page-header { padding: 8px 2px 8px; }
+  .page-eyebrow {
+    color: var(--muted);
+    font-size: var(--fs-footnote);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .page-title { margin-top: 2px; }
+
+  .section-title {
+    font-size: var(--fs-title3);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    padding: 12px 2px 0;
+  }
+
+  .tabbar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 var(--safe-right) var(--safe-bottom) var(--safe-left);
+    background: var(--card);
+    border-top: 1px solid var(--separator);
+    position: relative;
+    z-index: 5;
+  }
+
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: var(--tabbar-height);
+    color: var(--muted);
+    font-size: var(--fs-caption);
+    font-weight: 500;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    transition: color var(--motion) var(--ease), transform var(--motion) var(--ease);
+  }
+  .tab:active { transform: scale(0.94); }
+  .tab .icon { width: 1.625rem; height: 1.625rem; }
+  .tab[aria-current="page"] { color: var(--accent); }
+  .tab:focus-visible { outline-offset: -4px; border-radius: 12px; }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+  .muted { color: var(--muted); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  html.is-swiping, html.is-swiping * { user-select: none; -webkit-user-select: none; cursor: grabbing; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0s !important;
+      animation-duration: 0s !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) { animation: none !important; }
+  }
+}

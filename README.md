@@ -1,72 +1,75 @@
-# BA42 — Stan's marathon companion
+# Fitness app
 
-A zero-dependency, installable Progressive Web App for the Buenos Aires Marathon
-2026 training block. No backend, no accounts, no tracking — everything lives in the
-browser on your phone. Runs fully offline after the first load.
+Personal PWA for the weekly training plan and lift logging. See `CLAUDE.md` for the build brief.
 
-- **Stack:** vanilla HTML/CSS/JS (ES2022 modules). No framework, no build step, no dependencies.
-- **Data:** three immutable JSON plan files in [`data/`](data/) are the read-only database.
-- **Storage:** `localStorage` (versioned keys), with one-tap JSON backup/restore.
-- **Spec:** built to `03_app_design.md` v2.0 WEB (the normative design).
+Plan data: `data/plan.json` (edited by the coach). Logs: device localStorage, exported as JSON into `backups/`.
+
+## Run it
+
+Any static server works. From this folder:
+
+```bash
+python3 -m http.server 8765 --bind 127.0.0.1
+```
+
+Then open <http://localhost:8765/>. Service workers need `localhost` or HTTPS.
+
+To preview another day of the plan, add `?date=YYYY-MM-DD`, for example
+`/?date=2026-10-21` for a run day or `/?date=2026-10-25` for the rest day.
+
+## Test
+
+```bash
+node --test
+```
+
+- `tests/store.test.js`: load, save, export, import, validation and the import diff.
+- `tests/shell.test.js`: every file in the service worker's precache list exists, every JS module and
+  stylesheet is precached and modulepreloaded, the manifest icons exist, templates used in JS exist.
+
+## Deploy
+
+Copy the folder to any static host. **Bump `VERSION` in `sw.js` on every deploy**: the new version
+installs in the background and the app shows a "A new version is ready · Reload" toast. Adding a file
+means adding it to `SHELL` in `sw.js` and a `modulepreload` in `index.html` (the shell test checks both).
+
+`data/plan.json` is served stale-while-revalidate: the app opens with the cached plan, fetches the new
+one in the background, and re-renders with a "The plan was updated" toast when it changed. Coach edits
+to the plan do not need a version bump.
 
 ## Install on iPhone
 
-1. Open the site in **Safari**.
-2. Tap the **Share** button → **Add to Home Screen**.
-3. Launch **BA42** from the home-screen icon — it runs full-screen and works offline.
+Open the site in Safari, Share → Add to Home Screen. It runs standalone, works offline after the first
+load, and keeps its data in the home-screen app's own storage (separate from Safari's).
 
-## Deploy to GitHub Pages
+## Backups
 
-This folder (`ba42/`) is the repository root.
+Log → Export saves `fitness-backup-YYYY-MM-DD.json` (save picker where the browser has one, otherwise a
+download). Commit those files to `backups/`. Log → Import checks the file, shows what would change on
+this device, and replaces the log only after you confirm.
 
-1. Create a repo and push this folder's contents to the `main` branch.
-2. Repo → **Settings → Pages** → **Deploy from a branch** → `main` / **root** (`/`).
-3. The app is served at `https://<username>.github.io/ba42/`.
+## How it is built
 
-All URLs are **relative**, so it works unchanged at that sub-path. After each deploy
-that changes app files, bump `CACHE` in [`sw.js`](sw.js) (e.g. `ba42-v1` → `ba42-v2`)
-so the service worker refreshes the cached shell on the next open.
+No framework, no build step, no runtime dependencies.
 
-> The `tests/` folder is harmless if served — it is dev-only and never loaded by the app.
-
-## Develop & test
-
-The app needs no tooling to run — open `index.html` from any static server. The pure
-logic modules (`js/logic/`) are DOM-free and covered by Node's built-in test runner:
-
-```sh
-node --test tests/*.test.js
+```
+index.html                app shell, SVG icon sprite, <template> elements
+manifest.webmanifest
+sw.js                     versioned precache, stale-while-revalidate for data/plan.json
+css/tokens.css            @layer order + design tokens (colour, type, space, motion)
+css/base.css              reset, base, layout (views, tab bar), utilities, reduced motion
+css/components.css        cards, buttons, stepper, chips, sheet, pill, toast, ring, timeline, chart
+css/views.css             per-view layout and the view-transition animations
+js/app.js                 wires everything together
+js/store.js               async localStorage store, validation, export, import, diff
+js/plan.js, js/dates.js   plan helpers, local-date helpers
+js/router.js              hash router with cached views and view transitions
+js/swipe.js               pointer-events tab swiping with rubber-band ends
+js/timer.js               rest timer (performance.now anchored), notification
+js/pwa.js                 service worker registration and update toast
+js/dom.js                 template, element and transition helpers
+js/views/                 Today, Plan, Log (each renders from store state)
+js/components/            tab bar, sheet, set logger, stepper, ring, chart, pill, toast, backup
 ```
 
-All logic in `js/logic/` is pure (no DOM, `localStorage`, `fetch`, or `Date.now()`);
-I/O only enters through `store.js`, `dataLoader.js`, and `dateProvider.js`. All plan
-logic runs on `America/Argentina/Buenos_Aires` civil dates.
-
-Tip: append `?date=YYYY-MM-DD` to preview any day (pins "now" to that BA date).
-
-## Manual acceptance checklist
-
-Run these on the target device (iPhone/Safari) after deploying:
-
-- [ ] Installs to the home screen and opens **standalone** (full-screen, no Safari chrome).
-- [ ] **Airplane-mode relaunch** works fully (offline: shell, data, all screens).
-- [ ] **Today** shows the correct session + window for the device date; rest days say so.
-- [ ] Morning **check-in** → a readiness verdict (Ready / Caution / Unknown); a flagged
-      day offers one-tap convert.
-- [ ] **Log a session** (actuals + HR/RPE/pain) → Plan shows it ✓; an unlogged past
-      session shows "unlogged" with one-tap **Missed**.
-- [ ] **Fuel** on **2026-09-19** shows the carb-load checklist; race day shows the
-      race-morning/in-race timeline. On **Today**, hydration `+250 ml` taps accumulate.
-- [ ] **Trends** shows weekly planned-vs-done km, RHR/HRV/weight lines; after logging
-      `w07s06` the **checkpoint panel** evaluates and lets you record a decision.
-- [ ] **Backup**: Export downloads a JSON file; Import restores it (Settings).
-- [ ] **No network requests** after first load (verify in Safari Web Inspector →
-      Network while offline).
-
-## Data & privacy
-
-The three files in `data/` are generated artifacts and are **immutable** — never edit
-them. User data (session logs, check-ins, hydration, weigh-ins, checkpoint, checklist)
-stays in this browser only. Because browser storage can be evicted, the app requests
-persistent storage on install, nags for a backup each Sunday (except race morning),
-and offers export/import in Settings — keep a recent backup file.
+Weights are kg. Timed exercises (repRange ending in `s`, e.g. plank) store the seconds held in `reps`.

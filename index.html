@@ -1,49 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>BA42</title>
-  <meta name="description" content="BA42 — Stan's personal marathon companion">
-
-  <!-- iOS home-screen surface (§7) -->
+  <title>Today · Fitness</title>
+  <meta name="description" content="Weekly training plan and lift log.">
+  <meta name="theme-color" content="#FAFAF9">
+  <meta name="color-scheme" content="light">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="BA42">
-  <meta name="theme-color" content="#0B0F14">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <meta name="apple-mobile-web-app-title" content="Fitness">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
   <link rel="manifest" href="manifest.webmanifest">
-
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/views.css">
+  <link rel="modulepreload" href="js/app.js">
+  <link rel="modulepreload" href="js/store.js">
+  <link rel="modulepreload" href="js/plan.js">
+  <link rel="modulepreload" href="js/dates.js">
+  <link rel="modulepreload" href="js/dom.js">
+  <link rel="modulepreload" href="js/router.js">
+  <link rel="modulepreload" href="js/swipe.js">
+  <link rel="modulepreload" href="js/timer.js">
+  <link rel="modulepreload" href="js/pwa.js">
+  <link rel="modulepreload" href="js/views/view.js">
+  <link rel="modulepreload" href="js/views/today.js">
+  <link rel="modulepreload" href="js/views/plan.js">
+  <link rel="modulepreload" href="js/views/log.js">
+  <link rel="modulepreload" href="js/components/tab-bar.js">
+  <link rel="modulepreload" href="js/components/toast.js">
+  <link rel="modulepreload" href="js/components/timer-pill.js">
+  <link rel="modulepreload" href="js/components/sheet.js">
+  <link rel="modulepreload" href="js/components/stepper.js">
+  <link rel="modulepreload" href="js/components/progress-ring.js">
+  <link rel="modulepreload" href="js/components/set-logger.js">
+  <link rel="modulepreload" href="js/components/trend-chart.js">
+  <link rel="modulepreload" href="js/components/backup.js">
+  <script type="module" src="js/app.js"></script>
 </head>
 <body>
-  <header class="app-header">
-    <button id="menu-btn" class="menu-btn" aria-label="Open menu" aria-controls="drawer" aria-expanded="false">
-      <span class="menu-icon" aria-hidden="true"></span>
-    </button>
-    <span class="app-title">BA42</span>
-  </header>
+  <svg xmlns="http://www.w3.org/2000/svg" hidden>
+    <symbol id="i-today" viewBox="0 0 24 24"><path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></symbol>
+    <symbol id="i-plan" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></symbol>
+    <symbol id="i-log" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7.5 15.5l3.5-4.5 3 2.5 5-6.5"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V10M9.5 2.5h5M18.5 6.5l1.5-1.5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 12.5h9l1-12.5"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 15V3.5M7.5 8L12 3.5 16.5 8"/><path d="M5 12.5v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></symbol>
+    <symbol id="i-import" viewBox="0 0 24 24"><path d="M12 3.5V15M7.5 10.5L12 15l4.5-4.5"/><path d="M5 12.5v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M4 11.5A7.5 7.5 0 0 1 17 6.5l2.5 2.5M19.5 4.5V9H15"/><path d="M20 12.5A7.5 7.5 0 0 1 7 17.5L4.5 15M4.5 19.5V15H9"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9.5 5.5L16 12l-6.5 6.5"/></symbol>
+    <symbol id="i-run" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></symbol>
+    <symbol id="i-rest" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 1 1 9.5 4.5a6.5 6.5 0 0 0 10 10z"/></symbol>
+  </svg>
 
-  <div id="scrim" class="scrim"></div>
+  <div class="timer-pill" id="timer-pill" hidden></div>
+  <p class="sr-only" id="timer-live" aria-live="polite" aria-atomic="true"></p>
 
-  <nav id="drawer" class="drawer" aria-label="Primary" aria-hidden="true">
-    <div class="drawer-head">
-      <span class="drawer-title">BA42</span>
-      <span class="drawer-sub">Marathon companion</span>
-    </div>
-    <a class="tab" href="#/today"    data-tab="today">Today</a>
-    <a class="tab" href="#/plan"     data-tab="plan">Plan</a>
-    <a class="tab" href="#/fuel"     data-tab="fuel">Fuel</a>
-    <a class="tab" href="#/trends"   data-tab="trends">Trends</a>
-    <a class="tab" href="#/settings" data-tab="settings">Settings</a>
+  <main class="views" id="views"></main>
+
+  <nav class="tabbar" id="tabbar" aria-label="Sections">
+    <a class="tab" href="#/today" data-route="today" aria-current="page">
+      <svg class="icon" aria-hidden="true"><use href="#i-today"/></svg>
+      <span>Today</span>
+    </a>
+    <a class="tab" href="#/plan" data-route="plan">
+      <svg class="icon" aria-hidden="true"><use href="#i-plan"/></svg>
+      <span>Plan</span>
+    </a>
+    <a class="tab" href="#/log" data-route="log">
+      <svg class="icon" aria-hidden="true"><use href="#i-log"/></svg>
+      <span>Log</span>
+    </a>
   </nav>
 
-  <!-- No aria-live here: every render replaces the whole subtree, so a live region
-       would make VoiceOver re-announce the entire page after each interaction. -->
-  <main id="view" class="view"><!-- rendered by main.js --></main>
+  <div class="toast-region" id="toasts" role="status" aria-live="polite"></div>
 
-  <script type="module" src="js/main.js"></script>
+  <dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+    <div class="sheet__grab" data-ref="grab">
+      <div class="sheet__grabber" aria-hidden="true"></div>
+      <header class="sheet__header">
+        <div class="sheet__titles">
+          <h2 class="sheet__title" id="sheet-title" data-ref="title" tabindex="-1" autofocus></h2>
+          <p class="sheet__subtitle" data-ref="subtitle"></p>
+        </div>
+        <button type="button" class="btn btn--plain" data-ref="done">Done</button>
+      </header>
+    </div>
+    <div class="sheet__body" data-ref="body"></div>
+    <div class="toast-region" data-toast-region role="status" aria-live="polite"></div>
+  </dialog>
+
+  <noscript><p style="padding: 24px">This app needs JavaScript.</p></noscript>
+
+  <!-- ============================================================ templates -->
+
+  <template id="tpl-toast">
+    <div class="toast">
+      <span class="toast__msg" data-ref="message"></span>
+      <button type="button" class="toast__action" data-ref="action" hidden></button>
+    </div>
+  </template>
+
+  <template id="tpl-timer-pill">
+    <div class="timer-pill__inner">
+      <span class="timer-pill__label">
+        <svg class="icon" aria-hidden="true"><use href="#i-timer"/></svg>
+        <span data-ref="label">Rest</span>
+      </span>
+      <time class="timer-pill__time" role="timer" data-ref="time">0:00</time>
+      <button type="button" class="timer-pill__add" data-ref="add">+30 s</button>
+      <button type="button" class="icon-btn" data-ref="cancel" aria-label="Stop rest timer">
+        <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+    </div>
+  </template>
+
+  <template id="tpl-stepper">
+    <div class="stepper">
+      <label class="stepper__label" data-ref="label"></label>
+      <div class="stepper__control">
+        <button type="button" class="stepper__btn" data-ref="dec">
+          <svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg>
+        </button>
+        <div class="stepper__field" data-ref="field">
+          <input class="stepper__input" data-ref="input" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done">
+          <span class="stepper__unit" data-ref="unit" aria-hidden="true"></span>
+        </div>
+        <button type="button" class="stepper__btn" data-ref="inc">
+          <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-set-logger">
+    <div class="logger">
+      <p class="card-text" data-ref="rule"></p>
+      <div class="logger__steppers" data-ref="steppers"></div>
+      <fieldset class="logger__rpe">
+        <legend class="stepper__label">RPE (optional)</legend>
+        <div class="chips" data-ref="rpe"></div>
+      </fieldset>
+      <button type="button" class="btn btn--primary logger__log" data-ref="log">
+        <svg class="icon check-draw" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <span class="logger__log-label-default" data-ref="logLabel">Log set</span>
+        <span class="logger__log-label-done">Logged</span>
+      </button>
+      <div class="logger__rest" role="group" aria-labelledby="logger-rest-label">
+        <span class="logger__rest-label" id="logger-rest-label" data-ref="restLabel">Start rest</span>
+        <div class="rest-buttons">
+          <button type="button" class="btn btn--secondary" data-ref="rest90" data-seconds="90">90 s<span class="sr-only"> rest</span></button>
+          <button type="button" class="btn btn--secondary" data-ref="rest180" data-seconds="180">180 s<span class="sr-only"> rest</span></button>
+        </div>
+      </div>
+      <section class="logger__sets" data-ref="setsSection" aria-labelledby="logger-sets-title">
+        <h3 class="logger__sets-title" id="logger-sets-title">Today</h3>
+        <ol class="set-list" data-ref="sets"></ol>
+      </section>
+    </div>
+  </template>
+
+  <template id="tpl-set-row">
+    <li class="set-row">
+      <span class="set-row__n" data-ref="n" aria-hidden="true"></span>
+      <span class="set-row__value" data-ref="value"></span>
+      <span class="set-row__rpe" data-ref="rpe"></span>
+      <button type="button" class="icon-btn" data-ref="remove">
+        <svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>
+      </button>
+    </li>
+  </template>
+
+  <template id="tpl-exercise-row">
+    <li class="exercise">
+      <button type="button" class="exercise__open" data-ref="open">
+        <span class="exercise__status" data-ref="status" aria-hidden="true"></span>
+        <span class="exercise__text">
+          <span class="exercise__name" data-ref="name"></span>
+          <span class="exercise__meta" data-ref="meta"></span>
+          <span class="exercise__last" data-ref="last"></span>
+        </span>
+      </button>
+      <button type="button" class="btn btn--tinted btn--small exercise__same" data-ref="same" hidden>
+        <svg class="icon icon-repeat" aria-hidden="true"><use href="#i-repeat"/></svg>
+        <svg class="icon check-draw" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <span class="sr-only" data-ref="sameLabel"></span>
+        <span data-ref="sameValue"></span>
+      </button>
+    </li>
+  </template>
+
+  <template id="tpl-import">
+    <div class="logger">
+      <table class="diff-table">
+        <thead><tr><th scope="col"><span class="sr-only">Type</span></th><th scope="col">This device</th><th scope="col">Backup</th></tr></thead>
+        <tbody data-ref="rows"></tbody>
+      </table>
+      <div class="card-text" data-ref="notes"></div>
+      <p class="notice" data-ref="warning"></p>
+      <button type="button" class="btn btn--primary" data-ref="replace">Replace data on this device</button>
+      <button type="button" class="btn btn--secondary" data-ref="cancel">Keep current data</button>
+    </div>
+  </template>
+
+  <template id="tpl-import-error">
+    <div class="logger">
+      <p class="card-text">The file is not a fitness backup, or it has been edited into a shape the app can’t read. Nothing was changed.</p>
+      <ul class="error-list" data-ref="errors"></ul>
+      <button type="button" class="btn btn--primary" data-ref="ok">OK</button>
+    </div>
+  </template>
 </body>
 </html>

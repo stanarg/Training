@@ -1,0 +1,91 @@
+@layer views {
+  /* ------------------------------------------------------------ today */
+  .progress { display: flex; align-items: center; gap: 16px; }
+  .progress__text { display: grid; gap: 2px; min-width: 0; }
+  .progress__title { font-size: var(--fs-headline); font-weight: 600; }
+
+  .rest-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .rest-buttons .btn[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); }
+
+  .steps { display: flex; align-items: baseline; gap: 6px; }
+  .steps__value { font-size: var(--fs-display); font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+
+  .exercise__status { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; flex: none; }
+  .exercise__status .check-draw { width: 1.75rem; height: 1.75rem; stroke-width: 2.5; }
+  .exercise__same .check-draw { display: none; }
+  .exercise.is-done-flash .exercise__same .check-draw { display: block; }
+  .exercise.is-done-flash .exercise__same .icon-repeat { display: none; }
+
+  .run-summary { margin-bottom: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .card form > .btn--primary { margin-top: 16px; }
+
+  /* ------------------------------------------------------------ set logger */
+  .logger { display: grid; gap: 16px; }
+  .logger__steppers { display: grid; gap: 16px; }
+  @container (min-width: 460px) {
+    .logger__steppers { grid-template-columns: 1fr 1fr; }
+  }
+  .logger__rpe { display: grid; gap: 6px; }
+  .logger__rest { display: grid; gap: 6px; }
+  .logger__rest-label { color: var(--muted); font-size: var(--fs-footnote); font-weight: 600; }
+  .logger__sets-title { color: var(--muted); font-size: var(--fs-footnote); font-weight: 600; margin-bottom: 2px; }
+  .logger__log { position: relative; }
+  .logger__log .check-draw { display: none; }
+  .logger__log.is-done-flash .check-draw { display: block; }
+  .logger__log.is-done-flash .logger__log-label-default { display: none; }
+  .logger__log:not(.is-done-flash) .logger__log-label-done { display: none; }
+
+  /* ------------------------------------------------------------ plan */
+  .day-card { scroll-margin-top: calc(var(--safe-top) + 12px); }
+  body:has(.timer-pill:not([hidden])) .day-card { scroll-margin-top: calc(var(--safe-top) + 12px + var(--tap) + 16px); }
+  .day-card[data-today] { box-shadow: inset 0 0 0 2px var(--accent), var(--shadow-card); }
+  .day-card__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .day-card__day { color: var(--muted); font-size: var(--fs-footnote); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .day-card__title { margin-top: 2px; font-size: var(--fs-title3); font-weight: 700; letter-spacing: -0.01em; }
+  .day-card .rows { margin: 8px -16px -8px; }
+  .day-card .row { padding-block: 8px; }
+
+  .kcal { display: flex; align-items: baseline; gap: 6px; margin-bottom: 16px; }
+  .kcal__value { font-size: var(--fs-display); font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+
+  .rules { display: grid; gap: 12px; }
+  .rules dt { font-weight: 600; }
+  .rules dd { color: var(--muted); font-size: var(--fs-sub); }
+
+  /* ------------------------------------------------------------ log */
+  .backup-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+  .backup-actions + input { display: none; }
+  .timeline-weeks { display: grid; gap: 16px; }
+
+  /* ------------------------------------------------------------ view transitions
+     Names are only set for the duration of a transition, so the dimmed page
+     under an open sheet is never captured as a separate layer. */
+  html[data-vt^="tab"] .views { view-transition-name: view; }
+  html[data-vt^="sheet"] .sheet { view-transition-name: sheet; }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: var(--motion); }
+
+  ::view-transition-old(view),
+  ::view-transition-new(view) {
+    animation-duration: var(--motion);
+    animation-timing-function: var(--ease);
+    animation-fill-mode: both;
+  }
+  html[data-vt="tab-forward"]::view-transition-old(view) { animation-name: vt-out-left; }
+  html[data-vt="tab-forward"]::view-transition-new(view) { animation-name: vt-in-right; }
+  html[data-vt="tab-back"]::view-transition-old(view) { animation-name: vt-out-right; }
+  html[data-vt="tab-back"]::view-transition-new(view) { animation-name: vt-in-left; }
+
+  html[data-vt^="sheet"]::view-transition-old(root),
+  html[data-vt^="sheet"]::view-transition-new(root) { animation-duration: var(--motion-sheet); }
+  html[data-vt="sheet-open"]::view-transition-new(sheet) { animation: vt-sheet-in var(--motion-sheet) var(--ease-sheet) both; }
+  html[data-vt="sheet-close"]::view-transition-old(sheet) { animation: vt-sheet-out var(--motion-sheet) var(--ease-sheet) both; }
+
+  @keyframes vt-out-left { to { opacity: 0; transform: translateX(-24px); } }
+  @keyframes vt-out-right { to { opacity: 0; transform: translateX(24px); } }
+  @keyframes vt-in-right { from { opacity: 0; transform: translateX(24px); } }
+  @keyframes vt-in-left { from { opacity: 0; transform: translateX(-24px); } }
+  @keyframes vt-sheet-in { from { transform: translateY(100%); } }
+  @keyframes vt-sheet-out { to { transform: translateY(100%); } }
+}

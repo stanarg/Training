@@ -1,0 +1,60 @@
+/* Layer order for the whole app. Later layers win. */
+@layer reset, tokens, base, layout, components, views, utilities;
+
+@layer tokens {
+  :root {
+    color-scheme: light;
+
+    /* Colour */
+    --bg: #FAFAF9;
+    --card: #FFFFFF;
+    --text: #111827;
+    --muted: #6B7280;
+    --accent: #0F766E;
+    --on-accent: #FFFFFF;
+    --accent-press: color-mix(in srgb, var(--accent) 82%, black);
+    --accent-soft: color-mix(in srgb, var(--accent) 10%, white);
+    --fill: rgb(17 24 39 / 0.05);
+    --fill-press: rgb(17 24 39 / 0.1);
+    --separator: rgb(17 24 39 / 0.08);
+    --backdrop: rgb(17 24 39 / 0.3);
+    --inverse: var(--text);
+    --on-inverse: #FFFFFF;
+
+    /* Elevation */
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+    --shadow-float: 0 1px 3px rgba(0, 0, 0, 0.08), 0 10px 30px rgba(0, 0, 0, 0.12);
+
+    /* Type. Sizes are rem so Dynamic Type scales them. */
+    --font: -apple-system, "SF Pro", Inter, system-ui, sans-serif;
+    --fs-caption: 0.75rem;
+    --fs-footnote: 0.8125rem;
+    --fs-sub: 0.9375rem;
+    --fs-body: 1rem;
+    --fs-headline: 1.0625rem;
+    --fs-title3: 1.25rem;
+    --fs-title2: 1.5rem;
+    --fs-large: 2.125rem;
+    --fs-display: 2.5rem;
+
+    /* Space and shape */
+    --gutter: 16px;
+    --gap: 12px;
+    --radius-card: 16px;
+    --radius-control: 12px;
+    --radius-pill: 999px;
+    --tap: max(48px, 3rem);
+    --tabbar-height: max(56px, 3.25rem);
+    --content-max: 560px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+
+    /* Motion: one quiet duration; the sheet uses a longer native-style curve. */
+    --motion: 150ms;
+    --ease: cubic-bezier(0.2, 0, 0, 1);
+    --motion-sheet: 260ms;
+    --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+}
