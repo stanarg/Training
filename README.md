@@ -15,7 +15,7 @@ python3 -m http.server 8765 --bind 127.0.0.1
 Then open <http://localhost:8765/>. Service workers need `localhost` or HTTPS.
 
 To preview another day of the plan, add `?date=YYYY-MM-DD`, for example
-`/?date=2026-10-21` for a run day or `/?date=2026-10-25` for the rest day.
+`/?date=2026-10-21` for the run day or `/?date=2026-10-25` for a rest day.
 
 ## Test
 
