@@ -19,6 +19,16 @@ export function sessionFor(plan, day) {
   return plan.sessions.find((s) => s.day === day) ?? null;
 }
 
+/** Title for a logged session: the plan session sharing the most exercises with it, so
+ *  history keeps the right names when sessions move to other days. Ties go to its weekday. */
+export function loggedTitle(plan, logged) {
+  const ids = new Set(logged.exercises.map((e) => e.exerciseId));
+  const shared = (session) => (session?.exercises ?? []).filter((e) => ids.has(e.id)).length;
+  let best = sessionFor(plan, logged.day);
+  for (const session of plan.sessions) if (shared(session) > shared(best)) best = session;
+  return best?.title ?? logged.day;
+}
+
 export function targetSets(exercise) {
   return exercise.kind === 'main' ? 1 : (exercise.sets ?? 3);
 }

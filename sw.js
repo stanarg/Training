@@ -3,7 +3,7 @@
 //   - App shell: cache first (the whole shell is precached per version).
 //   - data/plan.json: stale-while-revalidate; open pages are told when it changed.
 
-const VERSION = '1.0.0';
+const VERSION = '1.0.1';
 const CACHE = `fitness-${VERSION}`;
 const PLAN = 'data/plan.json';
 

@@ -22,8 +22,14 @@
       { "id": "pulldown", "name": "Lat pulldown", "kind": "accessory", "sets": 3, "repRange": "8-12" },
       { "id": "curl", "name": "Curls", "kind": "accessory", "sets": 3, "repRange": "8-12" }
     ]},
-    { "day": "Wed", "title": "Easy run", "type": "run", "distanceKm": 5 },
-    { "day": "Thu", "title": "Rest", "type": "rest", "note": "8,500 steps" },
+    { "day": "Wed", "title": "Rest", "type": "rest", "note": "8,500 steps" },
+    { "day": "Thu", "title": "Upper C · Pull", "type": "lift", "exercises": [
+      { "id": "pullup", "name": "Pull-ups (assisted is fine)", "kind": "accessory", "sets": 3, "repRange": "6-10" },
+      { "id": "cablerow", "name": "Cable row", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+      { "id": "facepull", "name": "Face pulls", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+      { "id": "hammercurl", "name": "Hammer curls", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+      { "id": "kneeraise", "name": "Hanging knee raise", "kind": "accessory", "sets": 3, "repRange": "8-12" }
+    ]},
     { "day": "Fri", "title": "Upper B · Push", "type": "lift", "exercises": [
       { "id": "incdb", "name": "Incline dumbbell press", "kind": "accessory", "sets": 3, "repRange": "8-12" },
       { "id": "dips", "name": "Dips or push-ups", "kind": "accessory", "sets": 3, "repRange": "8-12" },
@@ -31,13 +37,7 @@
       { "id": "lateral", "name": "Lateral raise", "kind": "accessory", "sets": 3, "repRange": "12-15" },
       { "id": "triceps", "name": "Triceps", "kind": "accessory", "sets": 3, "repRange": "8-12" }
     ]},
-    { "day": "Sat", "title": "Upper C · Pull", "type": "lift", "exercises": [
-      { "id": "pullup", "name": "Pull-ups (assisted is fine)", "kind": "accessory", "sets": 3, "repRange": "6-10" },
-      { "id": "cablerow", "name": "Cable row", "kind": "accessory", "sets": 3, "repRange": "8-12" },
-      { "id": "facepull", "name": "Face pulls", "kind": "accessory", "sets": 3, "repRange": "12-15" },
-      { "id": "hammercurl", "name": "Hammer curls", "kind": "accessory", "sets": 3, "repRange": "8-12" },
-      { "id": "kneeraise", "name": "Hanging knee raise", "kind": "accessory", "sets": 3, "repRange": "8-12" }
-    ]},
+    { "day": "Sat", "title": "Easy run", "type": "run", "distanceKm": 5 },
     { "day": "Sun", "title": "Rest", "type": "rest", "note": "8,500 steps" }
   ]
 }

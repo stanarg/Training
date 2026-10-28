@@ -15,7 +15,7 @@ python3 -m http.server 8765 --bind 127.0.0.1
 Then open <http://localhost:8765/>. Service workers need `localhost` or HTTPS.
 
 To preview another day of the plan, add `?date=YYYY-MM-DD`, for example
-`/?date=2026-10-21` for the run day or `/?date=2026-10-25` for a rest day.
+`/?date=2026-10-24` for the run day or `/?date=2026-10-25` for a rest day.
 
 ## Test
 
@@ -24,6 +24,8 @@ node --test
 ```
 
 - `tests/store.test.js`: load, save, export, import, validation and the import diff.
+- `tests/plan.test.js`: history names logged sessions by their exercises, so moving a session to another day
+  keeps past entries labelled correctly.
 - `tests/shell.test.js`: every file in the service worker's precache list exists, every JS module and
   stylesheet is precached and modulepreloaded, the manifest icons exist, templates used in JS exist.
 

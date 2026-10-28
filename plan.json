@@ -7,10 +7,11 @@
     "sessionCapMinutes": 45
   },
   "sessions": [
-    { "day": "Mon", "title": "Lower A", "type": "lift", "exercises": [
+    { "day": "Mon", "title": "Lower", "type": "lift", "exercises": [
       { "id": "squat", "name": "Back squat", "kind": "main" },
       { "id": "rdl", "name": "Romanian deadlift", "kind": "accessory", "sets": 3, "repRange": "8-12" },
       { "id": "legpress", "name": "Leg press", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+      { "id": "legcurl", "name": "Leg curl", "kind": "accessory", "sets": 3, "repRange": "8-12" },
       { "id": "calf", "name": "Calf raise", "kind": "accessory", "sets": 3, "repRange": "8-12" },
       { "id": "plank", "name": "Plank", "kind": "accessory", "sets": 3, "repRange": "30-60s" }
     ]},
@@ -21,22 +22,22 @@
       { "id": "pulldown", "name": "Lat pulldown", "kind": "accessory", "sets": 3, "repRange": "8-12" },
       { "id": "curl", "name": "Curls", "kind": "accessory", "sets": 3, "repRange": "8-12" }
     ]},
-    { "day": "Wed", "title": "Easy run", "type": "run", "distanceKm": 5 },
-    { "day": "Thu", "title": "Rest", "type": "rest", "note": "8,500 steps" },
-    { "day": "Fri", "title": "Lower B", "type": "lift", "exercises": [
-      { "id": "deadlift", "name": "Deadlift", "kind": "main" },
-      { "id": "bss", "name": "Bulgarian split squat", "kind": "accessory", "sets": 3, "repRange": "8-12" },
-      { "id": "legcurl", "name": "Leg curl", "kind": "accessory", "sets": 3, "repRange": "8-12" },
-      { "id": "calf", "name": "Calf raise", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+    { "day": "Wed", "title": "Rest", "type": "rest", "note": "8,500 steps" },
+    { "day": "Thu", "title": "Upper C · Pull", "type": "lift", "exercises": [
+      { "id": "pullup", "name": "Pull-ups (assisted is fine)", "kind": "accessory", "sets": 3, "repRange": "6-10" },
+      { "id": "cablerow", "name": "Cable row", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+      { "id": "facepull", "name": "Face pulls", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+      { "id": "hammercurl", "name": "Hammer curls", "kind": "accessory", "sets": 3, "repRange": "8-12" },
       { "id": "kneeraise", "name": "Hanging knee raise", "kind": "accessory", "sets": 3, "repRange": "8-12" }
     ]},
-    { "day": "Sat", "title": "Upper B", "type": "lift", "exercises": [
+    { "day": "Fri", "title": "Upper B · Push", "type": "lift", "exercises": [
       { "id": "incdb", "name": "Incline dumbbell press", "kind": "accessory", "sets": 3, "repRange": "8-12" },
-      { "id": "cablerow", "name": "Cable row", "kind": "accessory", "sets": 3, "repRange": "8-12" },
       { "id": "dips", "name": "Dips or push-ups", "kind": "accessory", "sets": 3, "repRange": "8-12" },
-      { "id": "facepull", "name": "Face pulls", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+      { "id": "fly", "name": "Cable fly", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+      { "id": "lateral", "name": "Lateral raise", "kind": "accessory", "sets": 3, "repRange": "12-15" },
       { "id": "triceps", "name": "Triceps", "kind": "accessory", "sets": 3, "repRange": "8-12" }
     ]},
+    { "day": "Sat", "title": "Easy run", "type": "run", "distanceKm": 5 },
     { "day": "Sun", "title": "Rest", "type": "rest", "note": "8,500 steps" }
   ]
 }

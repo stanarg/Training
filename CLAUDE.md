@@ -62,4 +62,4 @@ README.md
 - Write tests in `tests/` for the store (load, save, export, import) using node's built-in `node:test`.
 
 ## Done means
-`index.html` opens from a static server, installs as a PWA on iPhone, and a full Lower A session can be logged, exported and re-imported with no console errors.
+`index.html` opens from a static server, installs as a PWA on iPhone, and a full Lower session can be logged, exported and re-imported with no console errors.

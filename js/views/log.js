@@ -4,7 +4,7 @@
 import { View } from './view.js';
 import { fmt1, fmtKg, h, icon, pageHeader } from '../dom.js';
 import { formatShort, fromISO, startOfWeek, toISO, weekLabel } from '../dates.js';
-import { exerciseIndex, isTimed, sessionFor } from '../plan.js';
+import { exerciseIndex, isTimed, loggedTitle } from '../plan.js';
 import { countSets } from '../store.js';
 import { TrendChart } from '../components/trend-chart.js';
 
@@ -194,7 +194,7 @@ export class LogView extends View {
   #item(date, { sessions, run, body }, index) {
     const groups = [];
     for (const session of sessions) {
-      const title = sessionFor(this.ctx.plan, session.day)?.title ?? session.day;
+      const title = loggedTitle(this.ctx.plan, session);
       groups.push(
         h(
           'div',
