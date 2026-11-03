@@ -1,0 +1,89 @@
+{
+  "weekStart": "2026-11-02",
+  "targets": { "kcal": 2450, "protein": 200, "fat": 70, "carbs": 255, "steps": 8500 },
+  "rules": {
+    "main": "Work up to one set of 5 at RPE 8. Record the weight.",
+    "accessory": "3 sets in the listed rep range, stopping 1 to 2 reps short of failure. When every set reaches the top of the range, add weight next time.",
+    "machines": "If a machine is taken, use the closest one and log it under the planned exercise.",
+    "sessionCapMinutes": 45
+  },
+  "weeks": [
+    {
+      "name": "Week A",
+      "sessions": [
+        { "day": "Mon", "title": "Lower A", "type": "lift", "exercises": [
+          { "id": "squat", "name": "Back squat", "kind": "main" },
+          { "id": "hacksquat", "name": "Hack squat", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "hipthrust", "name": "Hip thrust machine", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "seatedlegcurl", "name": "Seated leg curl", "kind": "accessory", "sets": 3, "repRange": "10-15" },
+          { "id": "legext", "name": "Leg extension", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+          { "id": "standingcalf", "name": "Standing calf raise", "kind": "accessory", "sets": 3, "repRange": "10-15" }
+        ]},
+        { "day": "Tue", "title": "Upper A", "type": "lift", "exercises": [
+          { "id": "bench", "name": "Bench press", "kind": "main" },
+          { "id": "tbarrow", "name": "Chest-supported T-bar row", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "machineshoulder", "name": "Machine shoulder press", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "pulldown", "name": "Wide-grip lat pulldown", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "cablelateral", "name": "Cable lateral raise", "kind": "accessory", "sets": 3, "repRange": "12-15" }
+        ]},
+        { "day": "Wed", "title": "Rest", "type": "rest", "note": "8,500 steps" },
+        { "day": "Thu", "title": "Pull A", "type": "lift", "exercises": [
+          { "id": "deadlift", "name": "Deadlift", "kind": "main" },
+          { "id": "pullup", "name": "Pull-ups (assisted is fine)", "kind": "accessory", "sets": 3, "repRange": "6-10" },
+          { "id": "highrow", "name": "Iso-lateral high row", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "reversepec", "name": "Reverse pec deck", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+          { "id": "inclinecurl", "name": "Incline dumbbell curl", "kind": "accessory", "sets": 3, "repRange": "8-12" }
+        ]},
+        { "day": "Fri", "title": "Push A", "type": "lift", "exercises": [
+          { "id": "incdb", "name": "Incline dumbbell press", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "chestpress", "name": "Seated chest press machine", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "pecdeck", "name": "Pec deck", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+          { "id": "machinelateral", "name": "Machine lateral raise", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+          { "id": "ohtriceps", "name": "Overhead cable triceps extension", "kind": "accessory", "sets": 3, "repRange": "10-15" },
+          { "id": "cablecrunch", "name": "Cable crunch", "kind": "accessory", "sets": 3, "repRange": "10-15" }
+        ]},
+        { "day": "Sat", "title": "Run", "type": "run", "note": "Easy pace, distance by feel" },
+        { "day": "Sun", "title": "Rest", "type": "rest", "note": "8,500 steps" }
+      ]
+    },
+    {
+      "name": "Week B",
+      "sessions": [
+        { "day": "Mon", "title": "Lower B", "type": "lift", "exercises": [
+          { "id": "trapbar", "name": "Trap-bar deadlift", "kind": "main" },
+          { "id": "pendulum", "name": "Pendulum squat", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "lunge", "name": "Dumbbell walking lunge (reps per leg)", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "lyinglegcurl", "name": "Lying leg curl", "kind": "accessory", "sets": 3, "repRange": "10-15" },
+          { "id": "seatedcalf", "name": "Seated calf raise", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+          { "id": "plank", "name": "Plank", "kind": "accessory", "sets": 3, "repRange": "30-60s" }
+        ]},
+        { "day": "Tue", "title": "Upper B", "type": "lift", "exercises": [
+          { "id": "ohp", "name": "Overhead press", "kind": "main" },
+          { "id": "inclinepress", "name": "Incline chest press machine", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "cablerow", "name": "Seated cable row", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "pullover", "name": "Pullover machine", "kind": "accessory", "sets": 3, "repRange": "10-15" },
+          { "id": "dblateral", "name": "Dumbbell lateral raise", "kind": "accessory", "sets": 3, "repRange": "12-15" }
+        ]},
+        { "day": "Wed", "title": "Rest", "type": "rest", "note": "8,500 steps" },
+        { "day": "Thu", "title": "Pull B", "type": "lift", "exercises": [
+          { "id": "row", "name": "Barbell row", "kind": "main" },
+          { "id": "neutralpulldown", "name": "Neutral-grip lat pulldown", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "lowrow", "name": "Iso-lateral low row", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "facepull", "name": "Face pulls", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+          { "id": "preachercurl", "name": "Preacher curl machine", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "kneeraise", "name": "Hanging knee raise", "kind": "accessory", "sets": 3, "repRange": "10-15" }
+        ]},
+        { "day": "Fri", "title": "Push B", "type": "lift", "exercises": [
+          { "id": "dbpress", "name": "Flat dumbbell press", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "dips", "name": "Dips (assisted is fine)", "kind": "accessory", "sets": 3, "repRange": "6-10" },
+          { "id": "crossover", "name": "Cable crossover", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+          { "id": "yraise", "name": "Cable Y-raise", "kind": "accessory", "sets": 3, "repRange": "12-15" },
+          { "id": "skullcrusher", "name": "EZ-bar skull crusher", "kind": "accessory", "sets": 3, "repRange": "8-12" },
+          { "id": "abcrunch", "name": "Ab crunch machine", "kind": "accessory", "sets": 3, "repRange": "10-15" }
+        ]},
+        { "day": "Sat", "title": "Run", "type": "run", "note": "Easy pace, distance by feel" },
+        { "day": "Sun", "title": "Rest", "type": "rest", "note": "8,500 steps" }
+      ]
+    }
+  ]
+}
